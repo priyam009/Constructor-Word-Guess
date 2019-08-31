@@ -1,5 +1,6 @@
 var fs = require("fs");
 var inquirer = require("inquirer");
+var chalk = require("chalk");
 var Word = require("./word");
 
 //Varible to count the guesses left before game is over
@@ -34,8 +35,9 @@ var askLetter = function(newWord) {
       ])
       .then(function(response) {
         //Check if the user input letter is not a repeat
-        if (guessedLetter.indexOf(response.guess) === -1) {
-
+        if (
+          guessedLetter.indexOf(response.guess) === -1
+        ) {
           //Add letter to the gussedLetter array
           guessedLetter.push(response.guess);
 
@@ -55,17 +57,21 @@ var askLetter = function(newWord) {
           //Check if the count of "_" before and after running the constructor is same or not
           if (after === before) {
             guessLeft--;
-            console.log("\n" + "Incorrect!" + "\n");
+            console.log("\n" + chalk.red("Incorrect!") + "\n");
           } else {
-            console.log("\n" + "Correct!" + "\n");
+            console.log("\n" + chalk.green("Correct!") + "\n");
           }
 
           //Remaining Guesses
           console.log(guessLeft + " guess remaining \n");
 
-          //Running the function askLetter untill guesses left
-          askLetter(newWord);
-
+          //Checking if the Game is won
+          if(after !== 0) {
+            //Running the function askLetter untill guesses left
+            askLetter(newWord);
+          } else {
+            console.log(chalk.green.bgBlue.bold("Game Won! :)") + "\n");
+          }
         } else {
           console.log("\n" + "No repeat letters. Try Again!!" + "\n");
           console.log(guessLeft + " guess remaining \n");
@@ -73,7 +79,9 @@ var askLetter = function(newWord) {
         }
       });
   } else {
-    console.log("Game Lost!" + "\n" + "No more guesses left :(");
+    console.log(
+      chalk.red.bgBlue.bold("Game Lost!" + "\n" + "No more guesses left :("  + "\n")
+    );
   }
 };
 
@@ -99,9 +107,12 @@ function wordGenerate() {
 
 //Check the count of "_" in the word Array
 function countChar(check) {
-  var check = check.join("");
-  check = check.match(/_/g).length;
-  return check;
+  var check = check.join("").match(/_/g);
+  if(check === null) {
+    return 0;
+  } else {
+    return check.length;
+  }
 }
 
 //Generate random word and start the game
