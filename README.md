@@ -14,13 +14,13 @@ If the number of guesses left are zero, the game is lost.
 ## 2. Organisation
 
 * **index.js** This file has the following functionalities,
- Create a random word from word.txt file.
- Use Inquirer to ask the letter from the user.
- Check whether the letter is in the word or not.
- If the letter is in the word, update the word and console log the output.
- If the letter is not in the word, reduce the gusses left by 1. Total guesses available are 10.
- Once the word is guessed or total guesses are zero, update the user with game Won or Lost.
- Don't allow letter to repeat.
+ a. Create a random word from word.txt file.
+ b. Use Inquirer to ask the letter from the user.
+ c. Check whether the letter is in the word or not.
+ d. If the letter is in the word, update the word and console log the output.
+ e. If the letter is not in the word, reduce the gusses left by 1. Total guesses available are 10.
+ f. Once the word is guessed or total guesses are zero, update the user with game Won or Lost.
+ g. Don't allow letter to repeat.
 
 * **word.js** This file contains the constructor Word, which calls Letter constructor for each letter in the word. Methods to show or update the word as per user input.
 
